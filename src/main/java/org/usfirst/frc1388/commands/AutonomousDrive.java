@@ -26,7 +26,7 @@ public class AutonomousDrive extends Command {
 	private final double k_minPwrCutoff = 0.2;	// stop motors if power is below this level
 	private double error;
 	private double power;
-	private final double k_maxPower = 1;
+	private final double k_maxPower = .3;
 	private static double threshold = 1.5; // error threshold for isFinished check (based on max dist over 20ms)
 	
 	private int stallCount = 0;
@@ -93,7 +93,7 @@ public class AutonomousDrive extends Command {
 		//error = distance - ((RobotMap.driveTrainleftEncoder.getDistance() + RobotMap.driveTrainrightEncoder.getDistance())/2);
 		error = distance - (RobotMap.driveTrainleftEncoder.getDistance());
 		//error = distance - (RobotMap.driveTrainrightEncoder.getDistance());
-		
+		System.out.println("left encoder = " + RobotMap.driveTrainleftEncoder.getDistance() + "\t" + "right encoder = " + RobotMap.driveTrainrightEncoder.getDistance() );
 		power = k_p * error + Math.copySign(k_powerOffset, error); // need be same sign
 	
 		//UsbLogging.printLog("Power is: " + power);

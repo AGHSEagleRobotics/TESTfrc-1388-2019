@@ -80,29 +80,11 @@ public class AutonomousInternal extends CommandGroup {
 
 		// END AUTOGENERATEE, SOURCE=ROBOTBUILDER ID=COMMAND_DECLARATIONS
 
-		gameData = Robot.gameData; // 3-char string from FMS / Driver Station / ex. "LRL"
-		position = Robot.fieldPosition; // Enum equal to value set in positionSelector SendableChooser, set in autonInit
 		
-		Objective priority = Robot.autonObjective; // Enum equal to value set in autonSelector SendableChooser, set in autonInit
-		setGoal(priority);
-
-		//AutonShake command(s)? add here if necessary
-		switchSide = gameData.substring(0, 1); // "L" L L 
-		scaleSide = gameData.substring(1, 2); // L "L" L
+		addSequential(new AutonomousDrive(12));
+		//addSequential(new AutonomousTurnTo( 540, false) );
+		//addSequential(new AutonomousDrive(120));
 		
-		addSequential(new ElevatorInit());
-		
-		switch (goal) {
-		case SCALE:
-			runScale(position, scaleSide);
-			break;
-
-		case SWITCH:
-			runSwitch(position, switchSide);
-			break;
-		default:
-			runLine();
-		}
 	}
 
 	public void runSwitch(Position position, String switchSide) {
